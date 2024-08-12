@@ -38,53 +38,7 @@
   (setq org-ellipsis "…")
   (set-face-attribute 'org-ellipsis nil :inherit 'default :box nil))
 
-(use-package pretty-hydra
-  :demand t
-  :config
-  (pretty-hydra-define
-    hydra-org-edit
-    (:color pink :quit-key "q")
-    ("Text"
-     (("R" org-clear               "clear")
-      ("H" org-toggle-heading      "heading")
-      ("b" org-bold                "bold")
-      ("i" org-italic              "italic")
-      ("u" org-underline           "underline")
-      ("s" org-strikethrough       "strike")
-      ("C" org-code                "code")
-      ("v" org-verbatim            "verbatim")
-      ("d" org-deadline            "deadline")
-      ("s" org-schedule            "schedule")
-      ("t" org-time-stamp          "timestamp")
-      ("T" org-time-stamp-inactive "inactive ts"))
-
-     "Trees"
-     (("j" outline-next-visible-heading     "→ next")
-      ("k" outline-previous-visible-heading "← prev")
-      ("l" org-forward-heading-same-level   "↦ next @ level")
-      ("h" org-backward-heading-same-level  "↤ prev @ level")
-      ("K" outline-up-heading               "↖ up")
-      ("C-h" org-promote-subtree            "⇐ promote")
-      ("C-j" org-move-subtree-down          "⇓ move down")
-      ("C-k" org-move-subtree-up            "⇑ move up")
-      ("C-l" org-demote-subtree             "⇒ demote")
-      ("w" org-narrow-to-subtree            "↪ narrow" :color blue)
-      ("W" widen                            "↔ widen"  :color blue)
-      ("x" org-cut-subtree                  "⇍ cut"    :color blue)
-      ("r" org-refile                       "⇵ refile" :color blue))
-
-     "Keys"
-     (("H" org-shiftleft      "S-←")
-      ("L" org-shiftright     "S-→")
-      ("." org-ctrl-c-ret     "C-⏎")
-      ("," org-meta-return    "M-⏎")
-      ("c" org-ctrl-c-ctrl-c  "C-C C-C")
-      ("*" org-ctrl-c-star    "C-C *")
-      ("-" org-ctrl-c-minus   "C-C -")
-      ("'" org-edit-special   "spedit")))))
-
 (use-package org
-  ;; :after 'pretty-hydra
   :init
   (setq
    org-directory              cxn/org-directory
@@ -113,6 +67,46 @@
   (org-mode . set-org-styles)
 
   :general
+  (general-define-key
+   :keymaps 'org-mode-map
+   "s-g" 'counsel-org-goto
+   "s-G" 'counsel-org-link
+   "s-a" 'org-attach
+   "s-p" 'org-set-property
+   "s-3" 'org-roam-tag-add
+   "s-#" 'org-roam-tad-delete
+
+   "s-<space>" 'org-clear
+   "s-h" 'org-toggle-heading
+   "s-b" 'org-bold
+   "s-i" 'org-italic
+   "s-u" 'org-underline
+   "s--" 'org-strikethrough
+   "s-'" 'org-code
+   "s-=" 'org-verbatim
+
+   "s-d" 'org-deadline
+   "s-D" 'org-schedule
+   "s-t" 'org-time-stamp
+   "s-T" 'org-time-stamp-inactive
+
+   "s-j" 'outline-next-visible-heading
+   "s-k" 'outline-previous-visible-heading
+   "s-l" 'org-forward-heading-same-level
+   "s-h" 'org-backward-heading-same-level
+   "s-<backspace>" 'outline-up-heading
+
+   "s-n" 'org-narrow-to-subtree
+   "s-N" 'widen
+
+   "s-H" 'org-promote-subtree
+   "s-L" 'org-demote-subtree
+   "s-K" 'org-move-subtree-up
+   "s-J" 'org-move-subtree-down
+
+   "s-x" 'org-cut-subtree
+   "s-r" 'org-refile)
+
   (cxn/ctrl-x-def
     "a" 'org-agenda
     "c" 'counsel-org-capture

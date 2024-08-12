@@ -33,14 +33,6 @@
 (use-package eldoc-box :straight t)
 (add-hook 'elgot-managed-mode-hook #'eldoc-box-hover-mode t)
 
-(use-package smartparens
-  :straight t
-  :hook
-  ((emacs-lisp-mode . smartparens-mode)
-   (clojure-mode . smartparens-mode))
-  :config
-  (require 'smartparens-config))
-
 (use-package doom-modeline
   :straight t
   :hook (after-init . doom-modeline-mode))

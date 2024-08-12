@@ -1,5 +1,3 @@
-(require 'core-functions)
-
 (use-package which-key
   :straight t
   :hook (after-init . which-key-mode)
@@ -18,21 +16,32 @@
   ;; using definers outside of this file won't work.
   :after evil
   :config
-  (general-define-key "M-x" 'counsel-M-x)
+  (require 'core-functions)
+
+  (general-define-key
+   "M-x"   'counsel-M-x
+   "s-`"   'other-frame
+   "s-q"   'save-buffers-kill-emacs
+   "s-s"   'save-buffer
+   "M-s-h" 'evil-window-left
+   "M-s-j" 'evil-window-down
+   "M-s-k" 'evil-window-up
+   "M-s-l" 'evil-window-right
+   "C-s-h" 'split-window-right
+   "C-s-j" 'split-window-below-and-focus
+   "C-s-k" 'split-window-below
+   "C-s-l" 'split-window-right-and-focus)
 
   (general-create-definer cxn/ctrl-x-def :prefix "C-x")
-
   (cxn/ctrl-x-def
-   "b"   'counsel-switch-buffer
-   "d"   'dired
-   "f"   'counsel-find-file
-   "i"   'hydra-parens/body
-   "g"   'magit-status
-   "r"   'counsel-rg
-   "t"   'vterm
-   "w"   'hydra-window/body
-   "x"   'hydra-ui/body
-   "z"   'counsel-fzf)
+   "b" 'counsel-switch-buffer
+   "d" 'dired
+   "f" 'counsel-find-file
+   "g" 'magit-status
+   "r" 'counsel-rg
+   "t" 'vterm
+   "x" 'hydra-ui/body
+   "z" 'counsel-fzf)
 
   (general-create-definer cxn/ctrl-c-def :prefix "C-c")
   (cxn/ctrl-c-def "" nil)
@@ -68,9 +77,7 @@
     "/"     '("search"      . counsel-rg)
     "?"     '("replace"     . query-replace)
 
-    "i"     '("parens"      . hydra-parens/body)
     "m"     (cons "major" (make-sparse-keymap))
-    "W"     '("window+"     . hydra-window/body)
     "x"     '("ui"          . hydra-ui/body)
 
     "b"   (cons "buffers" (make-sparse-keymap))
@@ -112,15 +119,15 @@
     "w<"    '("shrink fit"  . shrink-window-if-larger-than-buffer)
     "w="    '("balance"     . balance-windows)
     "wm"  (cons "switch" (make-sparse-keymap))
-    "wmh"   '("←" . evil-window-left)
-    "wmj"   '("↓" . evil-window-down)
-    "wmk"   '("↑" . evil-window-up)
-    "wml"   '("→" . evil-window-right)
+    "wmh"   '("←"          . evil-window-left)
+    "wmj"   '("↓"          . evil-window-down)
+    "wmk"   '("↑"          . evil-window-up)
+    "wml"   '("→"          . evil-window-right)
     "ws"  (cons "split" (make-sparse-keymap))
-    "wsh"   '("←" . split-window-right)
-    "wsj"   '("↓" . split-window-below-and-focus)
-    "wsk"   '("↑" . split-window-below)
-    "wsl"   '("→" . split-window-right-and-focus)
+    "wsh"   '("←"          . split-window-right)
+    "wsj"   '("↓"          . split-window-below-and-focus)
+    "wsk"   '("↑"          . split-window-below)
+    "wsl"   '("→"          . split-window-right-and-focus)
     )
   )
 
@@ -129,80 +136,34 @@
   :demand t
   :config
   (pretty-hydra-define
-    hydra-window
-    (:color pink :quit-key "q")
-    ("Window"
-     (("d"  delete-window                       "kill")
-      ("D"  delete-other-windows                "kill others")
-      ("<"  shrink-window-if-larger-than-buffer "shrink fit")
-      ("="  balance-windows                     "balance"))
-
-     "Switch"
-     (("h" evil-window-left  "←")
-      ("j" evil-window-down  "↓")
-      ("k" evil-window-up    "↑")
-      ("l" evil-window-right "→"))
-
-     "Split"
-     (("C-h" split-window-right           "←")
-      ("C-j" split-window-below-and-focus "↓")
-      ("C-k" split-window-below           "↑")
-      ("C-l" split-window-right-and-focus "→"))
-
-     "Resize"
-     (("H" window-move-splitter-left  "←")
-      ("J" window-move-splitter-down  "↓")
-      ("K" window-move-splitter-up    "↑")
-      ("L" window-move-splitter-right "→"))))
-
-  (pretty-hydra-define
     hydra-ui
     (:color red :quit-key "q")
-    ("Display"
-     (("l" display-line-numbers-mode "line numbers"     :toggle t)
-      ("w" whitespace-mode           "whitespace"       :toggle t)
-      ("v" visual-line-mode          "visual line mode" :toggle t)
-      ("r" toggle-truncate-lines     "truncate lines"))
-     "Text"
-     (("=" text-scale-increase       "scale +")
-      ("-" text-scale-decrease       "scale -")
-      ("0" (text-scale-adjust 0)     "reset"))))
-
-  (pretty-hydra-define
-    hydra-parens
-    (:color pink :quit-key "q")
-    ("Parens"
-     (("d"   sp-kill-sexp            "kill")
-      ("D"   sp-kill-hybrid-sexp     "kill to end")
-      ("b"   sp-backward-kill-sexp   "kill behind")
-      ("C-l" sp-forward-slurp-sexp   "slurp fwd")
-      ("C-h" sp-backward-slurp-sexp  "slurp bwd")
-      ("M-l" sp-forward-barf-sexp    "barf fwd")
-      ("M-h" sp-backward-barf-sexp   "barf bwd")
-      ("t"   sp-transpose-sexp       "transpose"))
-     "Wrap"
-     (("("   wrap-with-paren         "()")
-      ("["   wrap-with-bracket       "[]")
-      ("{"   wrap-with-brace         "{}")
-      ("<"   wrap-with-angle         "<>")
-      ("'"   wrap-with-single-quote  "'")
-      ("\""  wrap-with-double-quote  "\"")
-      ("`"   wrap-with-back-quote    "`")
-      ("u"   sp-unwrap-sexp          "unwrap fwd")
-      ("U"   sp-backward-unwrap-sexp "unwrap bwd"))
-     "Move"
-     (("a"   sp-beginning-of-sexp   "⇤ start")
-      ("e"   sp-end-of-sexp         "⇥ end")
-      ("j"   sp-down-sexp           "↘ down")
-      ("J"   sp-backward-down-sexp  "↙ down")
-      ("k"   sp-up-sexp             "↗ up")
-      ("K"   sp-backward-up-sexp    "↖ up")
-      ("l"   sp-forward-sexp        "→ fwd")
-      ("h"   sp-backward-sexp       "← bwd")
-      (","   sp-previous-sexp       "⇐ prev")
-      ("."   sp-next-sexp           "⇒ next")
-      ("="   sp-forward-symbol      "▶ symbol fwd")
-      ("-"   sp-backward-symbol     "◀ symbol bwd")))))
+    ("UI"
+     (("n"   display-line-numbers-mode       "line numbers"     :toggle t)
+      ("w"   whitespace-mode                 "whitespace"       :toggle t)
+      ("v"   visual-line-mode                "visual line mode" :toggle t)
+      ("r"   toggle-truncate-lines           "truncate lines")
+      ("="   text-scale-increase             "text scale +")
+      ("-"   text-scale-decrease             "text scale -")
+      ("0"   (text-scale-adjust 0)           "text reset"))
+     "Window Switch"
+     (("h"   evil-window-left                "←")
+      ("j"   evil-window-down                "↓")
+      ("k"   evil-window-up                  "↑")
+      ("l"   evil-window-right               "→")
+      ("C-h" split-window-right              "⇐")
+      ("C-j" split-window-below-and-focus    "⇓")
+      ("C-k" split-window-below              "⇑")
+      ("C-l" split-window-right-and-focus    "⇒"))
+     "Window Resize"
+     (("H"   window-move-splitter-left       "←")
+      ("J"   window-move-splitter-down       "↓")
+      ("K"   window-move-splitter-up         "↑")
+      ("L"   window-move-splitter-right      "→")
+      ("C-H" (window-move-splitter-left 16)  "⇐")
+      ("C-J" (window-move-splitter-down 16)  "⇓")
+      ("C-K" (window-move-splitter-up 16)    "⇑")
+      ("C-L" (window-move-splitter-right 16) "⇒")))))
 
 (use-package evil
   :straight t
