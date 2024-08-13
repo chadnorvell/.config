@@ -35,16 +35,10 @@
   (general-create-definer cxn/ctrl-x-def :prefix "C-x")
   (cxn/ctrl-x-def
    "b" 'counsel-switch-buffer
-   "d" 'dired
-   "f" 'counsel-find-file
-   "g" 'magit-status
-   "r" 'counsel-rg
-   "t" 'vterm
+   "/" 'counsel-rg
+   ">" 'vterm
    "x" 'hydra-ui/body
-   "z" 'counsel-fzf)
-
-  (general-create-definer cxn/ctrl-c-def :prefix "C-c")
-  (cxn/ctrl-c-def "" nil)
+   "." 'counsel-fzf)
 
   (general-define-key
    :states '(normal insert motion visual emacs)

@@ -1,5 +1,16 @@
 ;; Settings for code-related functionality.
 
+(use-package magit
+  :straight t
+  :general
+  (cxn/leader-def
+    "g"   (cons "git" (make-sparse-keymap))
+    "gs"    '("status"       . magit-status)
+    "gb"    '("blame"        . magit-blame)
+    "gd"    '("diff"         . magit-diff)
+    "g+"    '("stage file"   . magit-stage-file)
+    "g-"    '("unstage file" . magit-unstage-file)))
+
 (use-package treesit
   :demand t
   :config
@@ -7,8 +18,6 @@
   ;; tree-sit-install-language grammar for each entry to actually get the grammar.
   (setq treesit-language-source-alist
         '((css        "https://github.com/tree-sitter/tree-sitter-css"        "v0.21.0")
-          (elixir     "https://github.com/elixir-lang/tree-sitter-elixir"     "v0.2.0")
-          (heex       "http://github.com/phoenixframework/tree-sitter-heex"   "v0.6.0")
           (html       "https://github.com/tree-sitter/tree-sitter-html"       "v0.20.1")
           (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "tsx/src")
           (tsx        "https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "typescript/src")
@@ -17,29 +26,28 @@
 ;; Use eglot for code intelligence.
 (use-package eglot
   :general
-  (cxn/ctrl-c-def
-    "c" 'completion-at-point
-    "d" 'eglot-find-declaration
-    "h" 'eldoc-box-help-at-point
-    "H" 'eldoc
-    "i" 'eglot-find-implementations
-    "E" 'eglot
-    "f" 'eglot-format-buffer
-    "k" 'xref-find-definitions
-    "n" 'eglot-rename
-    "r" 'xref-find-references
-    "t" 'eglot-find-typeDefinition)
+  (general-define-key
+    "s-?" 'eldoc
+    "s-/" 'eldoc-box-help-at-point
+    "s-:" 'eglot-format-buffer
+    "s-c" 'completion-at-point
+    "s-f" 'xref-find-definitions
+    "s-i" 'eglot-find-declaration
+    "s-m" 'eglot-find-implementations
+    "s-n" 'eglot-rename
+    "s-r" 'xref-find-references
+    "s-y" 'eglot-find-typeDefinition)
 
   (cxn/leader-def
     "c"  (cons "code" (make-sparse-keymap))
+    "c:" '("format buffer"   . eglot-format-buffer)
     "cc" '("completion"      . completion-at-point)
-    "cd" '("declaration"     . eglot-find-declaration)
+    "cE" '("start eglot"     . eglot)
+    "cf" '("definition"      . xref-find-definitions)
+    "ci" '("declaration"     . eglot-find-declaration)
     "ch" '("docs"            . eldoc-box-help-at-point)
     "cH" '("docs buffer"     . eldoc)
-    "ci" '("implementations" . eglot-find-implementations)
-    "cE" '("start eglot"     . eglot)
-    "cf" '("format buffer"   . eglot-format-buffer)
-    "ck" '("definition"      . xref-find-definitions)
+    "cm" '("implementations" . eglot-find-implementations)
     "cn" '("rename"          . eglot-rename)
     "cr" '("references"      . xref-find-references)
     "ct" '("type definition" . eglot-find-typeDefinition)))
@@ -52,12 +60,11 @@
 (use-package apheleia
   :straight t
   :general
-  (cxn/ctrl-c-def
-    "F" 'apheleia-format-buffer
-    "A" 'apheleia-mode)
+  (general-define-key
+    "s-;" 'apheleia-format-buffer)
 
   (cxn/leader-def
-    "cF" '("format buffer with apheleia" . apheleia-format-buffer)
+    "c;" '("format buffer with apheleia" . apheleia-format-buffer)
     "cA" 'apheleia-mode))
 
 (use-package smartparens

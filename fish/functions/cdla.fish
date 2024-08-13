@@ -1,3 +1,3 @@
-function cdla --wraps='cd $argv && ls -la' --description 'alias cdla=cd $argv && ls -la'
-  cd $argv && ls -la
+function cdla --wraps='cd $argv && eza --long --all' --description 'alias cdla=cd $argv && eza --long --all'
+  cd $argv && eza --long --all
 end

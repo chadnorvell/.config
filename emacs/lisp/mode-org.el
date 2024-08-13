@@ -108,9 +108,9 @@
    "s-r" 'org-refile)
 
   (cxn/ctrl-x-def
-    "a" 'org-agenda
-    "c" 'counsel-org-capture
-    "C" 'org-roam-capture)
+    "C-a" 'org-agenda
+    "C-c" 'counsel-org-capture
+    "C-C" 'org-roam-capture)
 
   (cxn/leader-def
     "o"  (cons "org" (make-sparse-keymap))
