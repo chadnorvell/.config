@@ -8,11 +8,16 @@
       frame-resize-pixelwise t)
 
 (setq fixed-family "Iosevka")
-(set-face-font 'default (concat fixed-family "-16"))
+(set-face-font 'default (concat fixed-family "-14"))
 (copy-face 'default 'fixed-pitch)
 
-(setq variable-family "Linux Biolinum O")
-(set-face-font 'variable-pitch (concat variable-family  "-18"))
+(setq variable-family "Linux Biolinum")
+(set-face-font 'variable-pitch (concat variable-family  "-16"))
+
+(use-package nerd-icons
+  :straight t
+  :custom
+  (nerd-icons-font-family "Symbols Nerd Font"))
 
 (use-package doom-themes
   :straight t

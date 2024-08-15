@@ -6,7 +6,7 @@
 ;; Enable tree-sitter modes instead of the default non-tree-sitter modes.
 (add-to-list 'auto-mode-alist '("\\.[cm]?[jt]s\\'" . typescript-ts-mode))
 (add-to-list 'auto-mode-alist '("\\.[jt]sx\\'"     . tsx-ts-mode))
-(add-to-list 'auto-mode-alist '("\\.json\\'"       . json-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.json[c]?\\'"   . json-ts-mode))
 (add-to-list 'auto-mode-alist '("\\.html\\'"       . html-ts-mode))
 (add-to-list 'auto-mode-alist '("\\.css\\'"        . css-ts-mode))
 

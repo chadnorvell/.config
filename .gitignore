@@ -1,3 +1,4 @@
+1Password
 emacs/auto-save-list
 emacs/bookmarks
 emacs/.cache
@@ -15,6 +16,8 @@ emacs/transient
 emacs/tree-sitter
 fish/completions
 fish/fish_variables
+google-chrome
+Insync
 jgit
 vim/autoload
 vim/plugged

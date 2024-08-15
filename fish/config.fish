@@ -1,5 +1,7 @@
 set fish_greeting
 
+eval (keychain --eval --quiet id_ed25519)
+
 if status is-interactive
     if type -q vfox
         vfox activate fish | source

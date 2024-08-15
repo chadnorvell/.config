@@ -1,4 +1,4 @@
-(setq cxn/org-directory      "~/Documents/org/"
+(setq cxn/org-directory      "~/org/"
       cxn/org-roam-directory (concat cxn/org-directory "notes/")
       cxn/org-file-inbox     (concat cxn/org-directory "inbox.org")
       cxn/org-file-ctrl      (concat cxn/org-directory "ctrl.org"))
@@ -165,7 +165,8 @@
     :after org
     :init
     (setq org-roam-database-connector 'sqlite-builtin
-	  org-roam-directory cxn/org-roam-directory)
+	  org-roam-directory cxn/org-roam-directory
+	  org-roam-db-location (concat cxn/org-roam-directory "org-roam.db"))
     (with-eval-after-load 'org (org-roam-db-autosync-mode)))
 
   (use-package deft
