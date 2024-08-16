@@ -2,13 +2,14 @@
 decorations = "buttonless"
 dynamic_padding = false
 option_as_alt = "Both"
+opacity = 0.5
 
 [window.padding]
 x = 20
 y = 20
 
 [font]
-size = 14.0
+size = 16.0
 
 [font.normal]
 family = "Iosevka Term"

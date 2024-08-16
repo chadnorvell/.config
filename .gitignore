@@ -1,4 +1,3 @@
-1Password
 emacs/auto-save-list
 emacs/bookmarks
 emacs/.cache
@@ -17,7 +16,37 @@ emacs/tree-sitter
 fish/completions
 fish/fish_variables
 google-chrome
-Insync
 jgit
 vim/autoload
 vim/plugged
+
+# This is strange, but by default, ignore any directory beginning with a capital letter.
+# GUI apps tend to store their local state in directories like this, and we don't want
+# to sync that state. Or if we do, we add a specific exception.
+1*
+A*
+B*
+C*
+D*
+E*
+F*
+G*
+H*
+I*
+J*
+K*
+L*
+M*
+N*
+O*
+P*
+Q*
+R*
+S*
+T*
+U*
+V*
+W*
+X*
+Y*
+Z*

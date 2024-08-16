@@ -17,6 +17,7 @@
 (global-auto-revert-mode t)
 (electric-pair-mode)
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
+(add-hook 'prog-mode-hook 'column-number-mode)
 (add-hook 'prog-mode-hook 'toggle-truncate-lines)
 
 ;; Bootstrap the straight.el package manager.
