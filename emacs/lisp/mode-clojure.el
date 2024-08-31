@@ -33,6 +33,10 @@
 
   :general
   (general-define-key
+   "<f12>"   'cider-jack-in-clj&cljs
+   "S-<f12>" 'eglot
+   "s-e"   'cider-eval-last-sexp
+   "s-S-e" 'cider-eval-last-sexp-and-replace
    "s-v"   'cider-eval-buffer
    "s-t"   'cider-test-run-test)
 

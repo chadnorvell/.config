@@ -22,15 +22,11 @@
    "M-x"   'counsel-M-x
    "s-`"   'other-frame
    "s-q"   'save-buffers-kill-emacs
-   "s-s"   'save-buffer
-   "M-s-h" 'evil-window-left
-   "M-s-j" 'evil-window-down
-   "M-s-k" 'evil-window-up
-   "M-s-l" 'evil-window-right
-   "C-s-h" 'split-window-right
-   "C-s-j" 'split-window-below-and-focus
-   "C-s-k" 'split-window-below
-   "C-s-l" 'split-window-right-and-focus)
+   "s-s"   'save-buffer)
+
+  (general-define-key
+   :states '(normal visual)
+   "TAB"   'hydra-ui/body)
 
   (general-create-definer cxn/ctrl-x-def :prefix "C-x")
   (cxn/ctrl-x-def
@@ -61,9 +57,10 @@
 
   (cxn/leader-def
     "SPC"   '("M-x"         . counsel-M-x)
-    "TAB"   '("last buffer" . alternate-buffer)
-    "DEL"   '("last window" . alternate-window)
-    "RET"   '("next frame"  . other-frame)
+    "<prior>"   '("last buffer" . alternate-buffer)
+    "<next>"  '("last window" . alternate-window)
+    "`"  '("next frame"  . other-frame)
+    "TAB"   '("ui"          . hydra-ui/body)
     ";"     '("eval"        . eval-expression)
     "!"     '("shell"       . shell-command)
     ">"     '("term"        . vterm)
@@ -72,7 +69,6 @@
     "?"     '("replace"     . query-replace)
 
     "m"     (cons "major" (make-sparse-keymap))
-    "x"     '("ui"          . hydra-ui/body)
 
     "b"   (cons "buffers" (make-sparse-keymap))
     "bb"    '("switch"            . counsel-switch-buffer)
@@ -133,31 +129,31 @@
     hydra-ui
     (:color red :quit-key "q")
     ("UI"
-     (("n"   display-line-numbers-mode       "line numbers"     :toggle t)
-      ("w"   whitespace-mode                 "whitespace"       :toggle t)
-      ("v"   visual-line-mode                "visual line mode" :toggle t)
-      ("r"   toggle-truncate-lines           "truncate lines")
-      ("="   text-scale-increase             "text scale +")
-      ("-"   text-scale-decrease             "text scale -")
-      ("0"   (text-scale-adjust 0)           "text reset"))
+     (("n"     display-line-numbers-mode       "line numbers"     :toggle t)
+      ("w"     whitespace-mode                 "whitespace"       :toggle t)
+      ("v"     visual-line-mode                "visual line mode" :toggle t)
+      ("r"     toggle-truncate-lines           "truncate lines")
+      ("="     text-scale-increase             "text scale +")
+      ("-"     text-scale-decrease             "text scale -")
+      ("0"     (text-scale-adjust 0)           "text reset"))
      "Window Switch"
-     (("h"   evil-window-left                "←")
-      ("j"   evil-window-down                "↓")
-      ("k"   evil-window-up                  "↑")
-      ("l"   evil-window-right               "→")
-      ("C-h" split-window-right              "⇐")
-      ("C-j" split-window-below-and-focus    "⇓")
-      ("C-k" split-window-below              "⇑")
-      ("C-l" split-window-right-and-focus    "⇒"))
+     (("h"     evil-window-left                "←")
+      ("j"     evil-window-down                "↓")
+      ("k"     evil-window-up                  "↑")
+      ("l"     evil-window-right               "→")
+      ("C-h"   split-window-right              "⇐")
+      ("C-j"   split-window-below-and-focus    "⇓")
+      ("C-k"   split-window-below              "⇑")
+      ("C-l"   split-window-right-and-focus    "⇒"))
      "Window Resize"
-     (("H"   window-move-splitter-left       "←")
-      ("J"   window-move-splitter-down       "↓")
-      ("K"   window-move-splitter-up         "↑")
-      ("L"   window-move-splitter-right      "→")
-      ("C-H" (window-move-splitter-left 16)  "⇐")
-      ("C-J" (window-move-splitter-down 16)  "⇓")
-      ("C-K" (window-move-splitter-up 16)    "⇑")
-      ("C-L" (window-move-splitter-right 16) "⇒")))))
+     (("H"     window-move-splitter-left       "←")
+      ("J"     window-move-splitter-down       "↓")
+      ("K"     window-move-splitter-up         "↑")
+      ("L"     window-move-splitter-right      "→")
+      ("C-S-h" (window-move-splitter-left 16)  "⇐")
+      ("C-S-j" (window-move-splitter-down 16)  "⇓")
+      ("C-S-k" (window-move-splitter-up 16)    "⇑")
+      ("C-S-l" (window-move-splitter-right 16) "⇒")))))
 
 (use-package evil
   :straight t

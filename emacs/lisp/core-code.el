@@ -103,7 +103,7 @@
    "s-D"   'sp-backward-kill-sexp
    "C-s-d" 'sp-kill-hybrid-sexp
 
-   "C-s-l" 'sp-foward-slurp-sexp
+   "C-s-l" 'sp-forward-slurp-sexp
    "C-s-h" 'sp-backward-slurp-sexp
    "M-s-l" 'sp-forward-barf-sexp
    "M-s-h" 'sp-backward-barf-sexp
